@@ -57,7 +57,7 @@ class Convocatorias(models.Model):
         db_table = 'convocatorias'
 class Postulaciones (models.Model):
     convocatoria = models.ForeignKey(Convocatorias, on_delete=DO_NOTHING)
-    postulante = models.ForeignKey(Cuentas, on_delete=models.CASCADE)
+    aspirante = models.ForeignKey(Usuarios, on_delete=models.CASCADE)
     fecha_postulacion = models.DateField()
     estado = models.IntegerField()
     class Meta:

@@ -2,10 +2,10 @@ import React, {useState, useEffect} from "react";
 import { Row, Col } from "react-bootstrap";
 import File from '../../images/file.png';
 import EliminarConvocatoria from "./EliminarConvocatoria";
-import EnlacePostulantes from "./EnlacePostulantes";
+import EnlacePostulantes from "./EnlaceAspirantes";
 import API from '../../services/Api'
 import { MDBDataTableV5 } from 'mdbreact';
-import PostulanteComponent from "../postulante/PostulanteComponent";
+import PostulanteComponent from "../aspirante/AspiranteComponent";
 export default class ListarConvocatorias extends React.Component{
     constructor(props) {
         super(props);

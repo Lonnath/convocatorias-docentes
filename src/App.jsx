@@ -2,15 +2,15 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import HeaderComponent from "./components/indexContent/HeaderComponent";
 import HeaderComponentAdmin from "./components/admin/HeaderComponentAdmin";
-import HeaderComponentPostulante from "./components/postulante/HeaderComponentPostulante";
+import HeaderComponentAspirante from "./components/aspirante/HeaderComponentAspirante";
 import IndexContent from './components/indexContent/IndexContent';
 import FooterComponent from './components/footercomponent/FooterComponent';
 import CrearConvocatoria from "./components/acciones_convocatorias/CrearConvocatoria";
 import AdminIndex from "./components/admin/AdminIndex";
-import PostulanteIndex from './components/postulante/PostulanteIndex';
+import AspiranteIndex from './components/aspirante/AspiranteIndex';
 import RegistrarUsuario from './components/registrarse/RegistrarUsuario';
 import RecuperarCuenta from './components/recuperar_cuenta/RecuperarCuenta';
-import VerPostulados from "./components/acciones_convocatorias/VerPostulados";
+import VerAspirantes from "./components/acciones_convocatorias/VerAspirantes";
 
 function App() {
   document.title = 'Inicio'
@@ -26,17 +26,17 @@ function App() {
             <HeaderComponentAdmin />
             <CrearConvocatoria />
           </Route>
-          <Route path="/Postulante">
-            <HeaderComponentPostulante />
-            <PostulanteIndex />
+          <Route path="/Aspirantes">
+            <HeaderComponentAspirante />
+            <AspiranteIndex />
           </Route>
           <Route path="/CrearConvocatoria">
             <HeaderComponentAdmin />
             <CrearConvocatoria />
           </Route>
-          <Route path="/VerPostulados">
+          <Route path="/VerAspirantes">
             <HeaderComponentAdmin />
-            <VerPostulados />
+            <VerAspirantes />
           </Route>
           <Route path="/RegistrarUsuario">
             <HeaderComponent />

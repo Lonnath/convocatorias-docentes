@@ -1,8 +1,6 @@
 import React, {useState} from 'react'
 import { Row, Col, Button, Modal } from 'react-bootstrap'
-import EvalInfo from './PostulanteInfo';
-import EvalForm from './PostulanteForm';
-export default function PostulanteComponent ({data}){
+export default function DetallesAspirante ({data}){
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -10,7 +8,7 @@ export default function PostulanteComponent ({data}){
     return (
         <>
             <Button variant="outline-success" className="w-100" onClick={handleShow}>
-                Evaluar
+                DETALLES
             </Button>
     
             <Modal 
@@ -21,7 +19,7 @@ export default function PostulanteComponent ({data}){
                 size="lg"
             >
                 <Modal.Header>
-                        <Modal.Title>EVALUAR</Modal.Title>
+                        <Modal.Title>Detalles</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     
@@ -48,10 +46,10 @@ export default function PostulanteComponent ({data}){
                         </Row>
                         <div class="carousel-inner pos-carousel">
                             <div class="carousel-item active">
-                                <EvalInfo data = {data} handleClose = {handleClose}/>
+                                <div></div>
                             </div>
                             <div class="carousel-item">
-                                <EvalForm data = {data} handleClose = {handleClose}/>
+                                <div></div>
                             </div>
                         </div>
                     </div>                    

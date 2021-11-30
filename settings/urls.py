@@ -23,12 +23,12 @@ urlpatterns = [
     
     # INTERFACE URLS
     path('Admin', TemplateView.as_view(template_name="index.html")),
-    path('Postulante', TemplateView.as_view(template_name="index.html")),
+    path('Aspirantes', TemplateView.as_view(template_name="index.html")),
     path('CrearConvocatoria', TemplateView.as_view(template_name="index.html")),
     path('RegistrarUsuario', TemplateView.as_view(template_name="index.html")),
     path('RecuperarCuenta', TemplateView.as_view(template_name="index.html")),
     path('', TemplateView.as_view(template_name="index.html")),
-    path('VerPostulados', TemplateView.as_view(template_name="index.html")),
+    path('VerAspirantes', TemplateView.as_view(template_name="index.html")),
 
     # API URLS
 
@@ -37,4 +37,5 @@ urlpatterns = [
     path('api/consultar_convocatorias', consultar_convocatorias, name='consultar_convocatorias' ),
     path('api/crear_convocatoria', crear_convocatoria, name='crear_convocatoria' ),
     path('api/eliminar_convocatoria', eliminar_convocatoria, name='eliminar_convocatoria' ),
+    path('api/consultar_aspirantes', consultar_aspirantes, name='consultar_aspirantes' ),
 ]

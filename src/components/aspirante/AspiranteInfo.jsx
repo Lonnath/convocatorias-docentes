@@ -7,39 +7,39 @@ export default function PostulanteInfo ({data, handleClose}){
             <Row className="border-bottom">
                 <Col>
                     <span className="font-32">
-                        Información de Proyecto
+                        Información Convocatoria
                     </span> 
                 </Col>
             </Row>
             <Table striped bordered hover size="sm">
                 <tbody>
                     <tr>
-                        <td><strong>Nombre Proyecto : </strong></td>
-                        <td>{data.titulo}</td>
+                        <td><strong>Cargo : </strong></td>
+                        <td>XXXXXXXXXX</td>
                     </tr>
                     <tr>
-                        <td><strong>Autor : </strong></td>
-                        <td>{data.autor}</td>
+                        <td><strong>Area:  </strong></td>
+                        <td>XXXXXXXXXX</td>
                     </tr>
                     <tr>
-                        <td><strong>Fecha de Creación : </strong></td>
-                        <td>{data.fecha_creacion}</td>
+                        <td><strong>Fecha de Inicio : </strong></td>
+                        <td>XXXXXXXXXX</td>
                     </tr>
                     <tr>
-                        <td><strong>Estado : </strong></td>
-                        <td>{data.estado}</td>
+                        <td><strong>Fecha de Finalización : </strong></td>
+                        <td>XXXXXXXXXX</td>
                     </tr>
                     <tr>
-                        <td><strong>Palabras Clave : </strong></td>
-                        <td>{data.keysword}</td>
+                        <td><strong>Lanzamiento de la convocatoria : </strong></td>
+                        <td>XXXXXXXXXX</td>
                     </tr>
                     <tr>
-                        <td><strong>Resumen : </strong></td>
-                        <td>{data.resumen}</td>
+                        <td><strong>Descripción: </strong></td>
+                        <td>XXXXXXXXXX</td>
                     </tr>
                     <tr>
-                        <td><strong>Tópico : </strong></td>
-                        <td>{data.topico}</td>
+                        <td><strong>Estado: </strong></td>
+                        <td>XXXXXXXXXX</td>
                     </tr>
                 </tbody>
             </Table>

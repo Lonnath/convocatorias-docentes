@@ -38,7 +38,7 @@ export default class LoginFrom extends React.Component {
                         if(datos.tipo_usuario === 1){
                             window.location = '/Admin';
                         }else if(datos.tipo_usuario === 2){
-                            window.location = "/Postulante";
+                            window.location = "/Aspirantes";
                         }
                     }
                 

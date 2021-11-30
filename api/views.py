@@ -108,3 +108,35 @@ def eliminar_convocatoria(request):
     except Exception as e:
         print(e)
         return JsonResponse({'CODE':2, 'MESSAGE':'Fallo del Servidor, consultar con soporte.', 'DATA': 'ERROR'})
+@csrf_exempt
+def consultar_aspirantes(request):
+    try:
+        jd = json.loads(request.body)
+        if jd:
+            id_convocatoria = jd['id_convocatoria'] if 'id_convocatoria' in jd else None
+            if not id_convocatoria :
+                return JsonResponse({'CODE':2, 'MESSAGE':'Faltan datos.', 'DATA': "ERROR."})     
+            postulaciones = Postulaciones.objects.filter(convocatoria = id_convocatoria)
+            if postulaciones:
+                out = []
+                for x in postulaciones:
+                    estado = ""
+                    if x.estado == 1:
+                        estado = "Aceptado"
+                    elif x.estado == 0 :
+                        estado = "Rechazado"
+                    elif x.estado == 2 :
+                        estado = "Pendiente"
+                    out.append({
+                        'fecha_postulacion': x.fecha_postulacion.strftime('%Y-%m-%d'),
+                        'aspirante_nombre' : str(x.aspirante.nombre+ " "+x.aspirante.apellidos),
+                        'aspirante_documento' : x.aspirante.documento,
+                        'estado_postulacion' : estado,
+                    })
+                out = json.dumps(out)
+                return JsonResponse({'CODE':1, 'MESSAGE':'Consulta Autorizada.', 'DATA': out})
+            else:
+                return JsonResponse({'CODE':2, 'MESSAGE':'Acceso Denegado.', 'DATA': "ERROR."})    
+    except Exception as e:
+        print(e)
+        return JsonResponse({'CODE':2, 'MESSAGE':'Fallo del Servidor, consultar con soporte.', 'DATA': 'ERROR'})
