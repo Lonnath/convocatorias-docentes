@@ -87,7 +87,7 @@ export default class CrearConvocatoria extends React.Component {
                 </div>
                 <div className="d-flex justify-content-end mb-2"> 
                     <Button variant="success mx-2" className="close-button" type="submit">
-                        Crear Convocatoria
+                        Crear
                     </Button>
                 </div>
             </Form>
