@@ -46,7 +46,7 @@ export default function PostulanteComponent ({data}){
                                 </div>
                             </Col>
                         </Row>
-                        <div class="carousel-inner pos-carousel">
+                        <div class="carousel-inner">
                             <div class="carousel-item active">
                                 <AspiranteInfo data = {data} handleClose = {handleClose}/>
                             </div>

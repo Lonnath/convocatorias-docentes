@@ -62,8 +62,7 @@ def consultar_convocatorias(request):
                     estado = "Finalizada"
                     if int(x.estado) == 1:
                         estado = "Activa"
-                    out.append({'id': x.id, 'cargo': x.cargo, 'area': x.area, 'fecha_inicio_inscripcion': x.fecha_inicio_inscripcion.strftime('%Y-%m-%d'), 'fecha_max_inscripcion': x.fecha_max_inscripcion.strftime('%Y-%m-%d'), 'descripcion': x.descripcion, 'estado': estado, 'archivo_id': archivo})
-
+                    out.append({'id': x.id, 'fecha_creacion': x.fecha_creacion.strftime('%Y-%m-%d'),'cargo': x.cargo, 'area': x.area, 'fecha_inicio_inscripcion': x.fecha_inicio_inscripcion.strftime('%Y-%m-%d'), 'fecha_max_inscripcion': x.fecha_max_inscripcion.strftime('%Y-%m-%d'), 'descripcion': x.descripcion, 'estado': estado, 'archivo_id': archivo})
                 out = json.dumps(out)
                 return JsonResponse({'CODE':1, 'MESSAGE':'Consulta Autorizada.', 'DATA': out})
             return JsonResponse({'CODE':2, 'MESSAGE':'Acceso Denegado.', 'DATA': "ERROR."})    

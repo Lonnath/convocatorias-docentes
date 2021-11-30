@@ -2,10 +2,10 @@ import React, {useState, useEffect} from "react";
 import { Row, Col } from "react-bootstrap";
 import File from '../../images/file.png';
 import EliminarConvocatoria from "./EliminarConvocatoria";
-import EnlacePostulantes from "./EnlaceAspirantes";
+import EnlaceAspirantes from "./EnlaceAspirantes";
 import API from '../../services/Api'
 import { MDBDataTableV5 } from 'mdbreact';
-import PostulanteComponent from "../aspirante/AspiranteComponent";
+import AspiranteComponent from "../aspirante/AspiranteComponent";
 export default class ListarConvocatorias extends React.Component{
     constructor(props) {
         super(props);
@@ -135,7 +135,7 @@ export default class ListarConvocatorias extends React.Component{
             response => {
                 let out = []; 
                 JSON.parse(response.data.DATA).map(item => (
-                    out.push({'id':item.id, 'cargoyarea': item.cargo+" - "+item.area , 'fecha_inicio_inscripcion':item.fecha_inicio_inscripcion, 'fecha_max_inscripcion': item.fecha_max_inscripcion, 'descripcion': item.descripcion, 'estado':item.estado, 'archivo_id': <img src={File} alt="" width="30" />, 'acciones': this.state.admin ? <div><EnlacePostulantes data={item} /><EliminarConvocatoria data={item} /></div>: <PostulanteComponent data={item} /> })
+                    out.push({'id':item.id, 'cargoyarea': item.cargo+" - "+item.area , 'fecha_inicio_inscripcion':item.fecha_inicio_inscripcion, 'fecha_max_inscripcion': item.fecha_max_inscripcion, 'descripcion': item.descripcion, 'estado':item.estado, 'archivo_id': <img src={File} alt="" width="30" />, 'acciones': this.state.admin ? <div><EnlaceAspirantes data={item} /><EliminarConvocatoria data={item} /></div>: <div><AspiranteComponent data={item} /> <AspirantePostularse data={item}/></div>})
                 ));
                 this.setState({
                     datos: {

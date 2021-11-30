@@ -15,31 +15,31 @@ export default function PostulanteInfo ({data, handleClose}){
                 <tbody>
                     <tr>
                         <td><strong>Cargo : </strong></td>
-                        <td>XXXXXXXXXX</td>
+                        <td>{data.cargo}</td>
                     </tr>
                     <tr>
                         <td><strong>Area:  </strong></td>
-                        <td>XXXXXXXXXX</td>
+                        <td>{data.area}</td>
                     </tr>
                     <tr>
                         <td><strong>Fecha de Inicio : </strong></td>
-                        <td>XXXXXXXXXX</td>
+                        <td>{data.fecha_inicio_inscripcion}</td>
                     </tr>
                     <tr>
                         <td><strong>Fecha de Finalización : </strong></td>
-                        <td>XXXXXXXXXX</td>
+                        <td>{data.fecha_max_inscripcion}</td>
                     </tr>
                     <tr>
                         <td><strong>Lanzamiento de la convocatoria : </strong></td>
-                        <td>XXXXXXXXXX</td>
+                        <td>{data.fecha_creacion}</td>
                     </tr>
                     <tr>
                         <td><strong>Descripción: </strong></td>
-                        <td>XXXXXXXXXX</td>
+                        <td>{data.descripcion}</td>
                     </tr>
                     <tr>
                         <td><strong>Estado: </strong></td>
-                        <td>XXXXXXXXXX</td>
+                        <td>{data.estado}</td>
                     </tr>
                 </tbody>
             </Table>
