@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models.deletion import DO_NOTHING, SET_NULL
+from django.db.models.deletion import CASCADE, DO_NOTHING, SET_NULL
 
 # Create your models here.
 
@@ -57,8 +57,8 @@ class Convocatorias(models.Model):
     class Meta:
         db_table = 'convocatorias'
 class Postulaciones (models.Model):
-    convocatoria = models.ForeignKey(Convocatorias, on_delete=SET_NULL, null=True, blank=True)
-    aspirante = models.ForeignKey(Cuentas, on_delete=models.SET_NULL, null=True, blank=True)
+    convocatoria = models.ForeignKey(Convocatorias, on_delete=CASCADE, null=True, blank=True)
+    aspirante = models.ForeignKey(Cuentas, on_delete=models.CASCADE, null=True, blank=True)
     fecha_postulacion = models.DateField()
     estado = models.IntegerField()
     class Meta:
