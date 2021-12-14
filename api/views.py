@@ -100,9 +100,11 @@ def eliminar_convocatoria(request):
                     convocatoria.delete()
                     return JsonResponse({'CODE':1, 'MESSAGE':'Eliminación Realizada con Exito.', 'DATA': "Ok." })
                 except Exception as e:
+                    print(e)
                     return JsonResponse({'CODE':2, 'MESSAGE':'Operación fallida, consultar con soporte.', 'DATA': "ERROR."})            
             return JsonResponse({'CODE':2, 'MESSAGE':'Acceso Denegado.', 'DATA': "ERROR."})    
     except Exception as e:
+        print(e)
         return JsonResponse({'CODE':2, 'MESSAGE':'Fallo del Servidor, consultar con soporte.', 'DATA': 'ERROR'})
 @csrf_exempt
 def consultar_aspirantes(request):

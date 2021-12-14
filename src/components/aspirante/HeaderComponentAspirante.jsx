@@ -1,6 +1,7 @@
 import React from 'react';
 import { Navbar, Container, Nav, NavDropdown} from 'react-bootstrap';
 import Close from '../../services/close'
+import UFPSLogo from '../../images/logoufps.png';
 export default function HeaderComponentPostulante(){
     const cerrar = () => {
         new Close();
@@ -9,7 +10,8 @@ export default function HeaderComponentPostulante(){
         <>
             <Navbar collapseOnSelect expand="lg" className="ufps-color" variant="dark">
                 <Container>
-                        <Navbar.Brand href="/">Convocatorias UFPS</Navbar.Brand>
+                        <img src={UFPSLogo} alt="Logo UFPS"  width="60" height="60"/>
+                        <Navbar.Brand href="/" className="ms-4">Convocatorias UFPS</Navbar.Brand>
                         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                         <Navbar.Collapse id="responsive-navbar-nav">
                             <Nav className="me-auto">
