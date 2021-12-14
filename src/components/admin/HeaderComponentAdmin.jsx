@@ -17,6 +17,7 @@ export default function HeaderComponentAdmin(){
                             <Nav>
                                 <a href="/Admin" className="text-sha btn ufps-color text-start text-white">Inicio</a>
                                 <a href="/CrearConvocatoria" className="text-sha btn ufps-color text-start text-white">Crear Convocatoria</a>
+                                <a href="/MiPerfilAdmin" className="text-sha btn ufps-color text-start text-white">Perfil</a>
                                 <div onClick={cerrar} className="text-sha btn ufps-color text-start text-white">Cerrar Sesion</div>
                             </Nav>
                         </Navbar.Collapse>

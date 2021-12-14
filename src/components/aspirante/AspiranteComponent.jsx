@@ -10,7 +10,7 @@ export default function PostulanteComponent ({data}){
     return (
         <>
             <Button variant="outline-success" className="w-100" onClick={handleShow}>
-                DETALLES
+                Detalles
             </Button>
     
             <Modal 

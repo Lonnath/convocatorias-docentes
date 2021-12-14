@@ -9,7 +9,7 @@ export default function EnlaceAspirantes ({data}){
     
     return (
         <>
-            <a href="#" className="btn btn-info w-50" onClick={takeit}>ASPIRANTES</a>
+            <a href="#" className="btn btn-info w-45" onClick={takeit}>ASPIRANTES</a>
         </>
     );
 }

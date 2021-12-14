@@ -129,3 +129,12 @@ body {
 .ufps-color{
   background-color: #aa1916;
 }
+.w-45{
+  width: 45% !important;
+}
+.boton-danger{
+  background-color: #dc3545 !important;
+}
+.datos-usuario{
+  overflow-y: scroll !important;
+}

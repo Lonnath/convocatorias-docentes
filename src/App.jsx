@@ -8,9 +8,13 @@ import FooterComponent from './components/footercomponent/FooterComponent';
 import CrearConvocatoria from "./components/acciones_convocatorias/CrearConvocatoria";
 import AdminIndex from "./components/admin/AdminIndex";
 import AspiranteIndex from './components/aspirante/AspiranteIndex';
-import RegistrarUsuario from './components/registrarse/RegistrarUsuario';
-import RecuperarCuenta from './components/recuperar_cuenta/RecuperarCuenta';
+import RegistrarUsuario from './components/cuenta/RegistrarUsuario';
+import RecuperarCuenta from './components/cuenta/RecuperarCuenta';
 import VerAspirantes from "./components/acciones_convocatorias/VerAspirantes";
+import MiPerfil from "./components/cuenta/MiPerfil";
+import MiPerfilAcademico from "./components/cuenta/MiPerfilAcademico";
+import MiPerfilProfesional from "./components/cuenta/MiPerfilProfesional";
+import VerPostulaciones from "./components/aspirante/VerPostulaciones";
 
 function App() {
   document.title = 'Inicio'
@@ -22,6 +26,10 @@ function App() {
             <HeaderComponentAdmin />
             <AdminIndex />
           </Route>
+          <Route path="/MiPerfilAdmin">
+            <HeaderComponentAdmin />
+            <MiPerfil />
+          </Route>
           <Route path="/CrearConvocatoria">
             <HeaderComponentAdmin />
             <CrearConvocatoria />
@@ -30,10 +38,27 @@ function App() {
             <HeaderComponentAspirante />
             <AspiranteIndex />
           </Route>
+          <Route path="/MiPerfilAspirantes">
+            <HeaderComponentAspirante />
+            <MiPerfil />
+          </Route>
+          <Route path="/MiPerfilProfesional">
+            <HeaderComponentAspirante />
+            <MiPerfilProfesional />
+          </Route>
+          <Route path="/MiPerfilAcademico">
+            <HeaderComponentAspirante />
+            <MiPerfilAcademico />
+          </Route>
+          <Route path="/VerPostulaciones">
+            <HeaderComponentAspirante />
+            <VerPostulaciones />
+          </Route>
           <Route path="/CrearConvocatoria">
             <HeaderComponentAdmin />
             <CrearConvocatoria />
           </Route>
+          
           <Route path="/VerAspirantes">
             <HeaderComponentAdmin />
             <VerAspirantes />

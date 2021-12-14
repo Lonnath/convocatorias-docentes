@@ -1,105 +1,86 @@
-import React, {useEffect, useState} from "react";
-import Notifications from './Notifications';
-import { Table, Row, Col} from "react-bootstrap";
-import File from '../../images/file.png';
-import PostulanteComponent from './PostulanteComponent';
-import API from '../../services/Api'
-export default class Postular extends React.Component{
-    constructor(props) {
-        super(props);
-        this.state = {
-            notificacion: false,
-            loading : false,
-            data: {},
-        };      
-             
-        this.consultar();  
-    }
-    consultar (){
-        const datos = {
-            user : JSON.parse(sessionStorage.getItem('sesion')).id,
+import React, {useState} from 'react'
+import { Table, Button, Modal, Alert } from 'react-bootstrap'
+import API from '../../services/Api';
+import SpinnerComponent from '../spinner/SpinnerComponent';
+export default function Postular ({data}){
+    const [show, setShow] = useState(false);
+    const [alerta, setAlerta] = useState("");
+    const [loading, setLoading] = useState(true);
+    const [datos, setDatos] = useState(data);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+    const postular = () => {
+        const data = {
+            user:  JSON.parse(sessionStorage.getItem('sesion')).id,
+            convocatoria: datos.id,
         }
-        API.post('/api/consultar_evaluaciones_evaluador', datos).then(
+        API.post('/api/postular_aspirante', data).then(
             response => {
-                if(this.state.data.length!=JSON.parse(response.data.DATA).length){
-                    this.state.notificacion = true;
-                }
-                this.setState({data:JSON.parse(response.data.DATA), loading : true});
-            }
-        )
-        
-    }
-    componentDidUpdate(){
-        this.consultar();
-        if(this.state.notificacion===true){
-            setTimeout(()=>{
-                this.state.notificacion=false;
-            }, 5000);
-        }
-    }
+                setAlerta(<Alert variant={response.data.CODE === 2 ? "warning" : "success"}>{response.data.MESSAGE}</Alert>);
+                setLoading(true);
+            }    
+        );
 
-    render(){ 
-        return(
-            <>
-                <div className="mx-5">
-                    <Row>
-                        <Col>
-                            <h1>
-                                Proyectos Por Asignar
-                            </h1>
-                            <div>
-                                { this.state.notificacion ? <Notifications bool={this.state.notificacion} /> : <></>}
-                            </div>
-                            
-                        </Col>
-                    </Row>
-
-                    <Table striped bordered hover responsive>
-                        <thead>
-                            <tr>
-                                <th>Nombre Proyecto</th>
-                                <th>Autor</th>
-                                <th>Fecha Proyecto</th>
-                                <th>Archivos</th>
-                                <th>Accion</th>
-                            </tr>
-                        </thead>
+    }
+    return (
+        <>
+            <Button variant="outline-info" className="w-100" onClick={handleShow}>
+                Postularse
+            </Button>
+    
+            <Modal 
+                show={show}
+                onHide={handleClose}
+                backdrop="static"
+                keyboard={false}
+                size="lg"
+            >
+                <Modal.Header>
+                        <Modal.Title>Postulación - {data.estado}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Table className="mx-auto w-75">
                         <tbody>
-                            {
-                                this.state.loading ?
-                                    this.state.data.length > 0 ? 
-                                        this.state.data.map(item => (
-                                            <tr >
-                                                <td>{item.titulo}</td>
-                                                <td>{item.autor}</td>
-                                                <td>{item.fecha_creacion}</td>
-                                                <td><img src={File} alt="" width="30" /></td>
-                                                <td>
-                                                    <PostulanteComponent data = {item} />
-                                                </td>
-                                            </tr>
-
-                                        ))
-                                    :   
-                                        <tr>
-                                            <td colSpan="5">
-                                                No existen registros.
-                                            </td>
-                                            
-                                        </tr>
-                                :
+                            <tr>
+                                <td><strong>Area - Cargo: </strong></td>
+                                <td>{data.area} - {data.cargo}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Fecha de Inicio: </strong></td>
+                                <td>{data.fecha_inicio_inscripcion}</td>
+                            </tr>
+                            <tr>
                                 
-                                    <tr>
-                                        <td colSpan="5">
-                                            Cargando...
-                                        </td>
-                                    </tr>
-                                    
-                            }
+                                <td><strong>Fecha de Finalización: </strong></td>
+                                <td>{data.fecha_max_inscripcion}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Lanzamiento de la convocatoria: </strong></td>
+                                <td>{data.fecha_creacion}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Descripción: </strong></td>
+                                <td>{data.descripcion}</td>
+                            </tr>
                         </tbody>
-                    </Table>
-                </div>
-            </>
-        )
-    }
+                    </Table> 
+                    <div id ="alerta">
+                        {
+                            loading ? alerta : <div class="d-flex justify-content-center mb-2"><SpinnerComponent /></div>
+                        }
+                    </div>             
+                </Modal.Body>
+                <Modal.Footer>
+                    <div className="d-flex justify-content-end">
+                        <Button variant="info" onClick={postular} className="close-button me-4">
+                            Postularse
+                        </Button>
+                        <Button variant="secondary" onClick={handleClose} className="close-button me-4">
+                            Cerrar
+                        </Button>
+                    </div>
+                </Modal.Footer>
+            </Modal>
+        </>
+    );
 }

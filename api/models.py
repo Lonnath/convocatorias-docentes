@@ -24,6 +24,7 @@ class Experiencias(models.Model):
     inicio_experiencia = models.DateField()
     fin_experiencia = models.DateField(null=True, blank=True)
     empresa = models.CharField(max_length=255)
+    cargo = models.CharField(max_length=255, default="")
     descripcion = models.TextField()
     actual_trabajo = models.IntegerField()
     class Meta:
@@ -57,7 +58,7 @@ class Convocatorias(models.Model):
         db_table = 'convocatorias'
 class Postulaciones (models.Model):
     convocatoria = models.ForeignKey(Convocatorias, on_delete=DO_NOTHING)
-    aspirante = models.ForeignKey(Usuarios, on_delete=models.CASCADE)
+    aspirante = models.ForeignKey(Cuentas, on_delete=models.CASCADE)
     fecha_postulacion = models.DateField()
     estado = models.IntegerField()
     class Meta:

@@ -2,29 +2,20 @@ import React, {useState, useEffect} from 'react'
 import {Button, Alert, Modal} from 'react-bootstrap';
 import SpinnerComponent from '../spinner/SpinnerComponent.jsx';
 import API from '../../services/Api'
-export default function EliminarConvocatoria ({data, disabled}){
+export default function EliminarEstudio ({data}){
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const [loading, setLoading] = useState(true);
     const [alerta, setAlerta] = useState("");
-    const [boton, setBoton] = useState("boton"+data.id_proyecto+"erase");
-    useEffect(
-        function boton_funcion (){
-            if(disabled){
-                document.getElementById(boton).disabled = true;
-            }else{
-                document.getElementById(boton).disabled = false;
-            }
-        }
-    );
+    const [dato, setDato] = useState(data);
     const eliminar = () => {
         setLoading(false);
+        console.log(dato)
         let datos = {
-            id_convocatoria: data.id,
-            id_user: JSON.parse(sessionStorage.getItem('sesion')).id,
+            estudio : dato.id_estudio,
         };
-        API.post('/api/eliminar_convocatoria', datos).then(
+        API.post('/api/eliminar_estudio', datos).then(
             (response) => {
                     setAlerta(<Alert variant={response.data.CODE === 1 ? 
                         "success" : "warning"} className="vanish">{response.data.MESSAGE}</Alert>)
@@ -42,7 +33,7 @@ export default function EliminarConvocatoria ({data, disabled}){
     }
     return (
         <>
-            <Button id = {boton} variant={disabled? "outline-danger" :  "danger"} className="w-45 ms-2" onClick={handleShow} >
+            <Button className="btn btn-danger danger boton-danger w-100 ms-2" onClick={handleShow} >
                 Eliminar
             </Button>
             <Modal 
@@ -52,7 +43,7 @@ export default function EliminarConvocatoria ({data, disabled}){
                 keyboard={false}
             >
                 <Modal.Header>
-                        <Modal.Title>Eliminar Convocatoria</Modal.Title>
+                        <Modal.Title>Eliminar Estudio</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <p>¿Esta seguro que desea realizar esta acción?, esta acción es irreversible.</p>

@@ -1,7 +1,8 @@
 import React from "react";
-import API from '../../services/Api'
+import API from '../../services/Api';
 import { MDBDataTableV5 } from 'mdbreact';
-import DetallesAspirante from './DetalleAspirante'
+import DetallesAspirante from './DetalleAspirante';
+import Calificar from './Calificar';
 export default class VerPostulados extends React.Component{
     constructor(props) {
         super(props);
@@ -81,6 +82,10 @@ export default class VerPostulados extends React.Component{
                 ],
             },
         }
+        this.consultar();
+        if(this.state.datos.rows.length != this.state.dataTable.rows.length || this.state.dataTable.rows.length==0 ){
+            this.setState({dataTable:this.state.datos});
+        }
         setInterval(() => {
             this.consultar();
             if(this.state.datos.rows.length != this.state.dataTable.rows.length || this.state.dataTable.rows.length==0 ){
@@ -102,7 +107,7 @@ export default class VerPostulados extends React.Component{
                         'aspirante_nombre': item.aspirante_nombre,
                         'fecha_postulacion': item.fecha_postulacion,
                         'estado': item.estado,
-                        'accion': <DetallesAspirante data={item}/>
+                        'accion': <div><DetallesAspirante data={item}/><Calificar data={item} /></div>
                     })
                 ));
                 this.setState({
