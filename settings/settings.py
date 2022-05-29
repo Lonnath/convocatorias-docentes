@@ -33,7 +33,7 @@ SECRET_KEY = 'django-insecure-xg7kj*o)lpv$cno#w1y!s7t*iao#hshk+ge*lbh8_)c!+l--u5
 DEBUG = True
 
 
-ALLOWED_HOSTS = ['convocatorias-docentes.herokuapp.com']
+ALLOWED_HOSTS = ['profesores-elegibles.herokuapp.com']
 #ALLOWED_HOSTS = ['127.0.0.1', '.localhost'] # Para desarrollo en local
 
 
