@@ -1,5 +1,5 @@
 import React from "react";
-import {Row, Col, Button, Form, Alert, Pagination} from 'react-bootstrap'
+import {Row, Col, Button, Form, Alert} from 'react-bootstrap'
 import SpinnerComponent from '../spinner/SpinnerComponent.jsx';
 import API from '../../services/Api'
 export default class RegistrarUsuario extends React.Component {
@@ -46,13 +46,18 @@ export default class RegistrarUsuario extends React.Component {
         
         this.setState({loading:false});
         API.post('/api/registrar_usuarios', data).then(
-                response => this.setState({alerta : <Alert variant={response.data.CODE === 1 ? 
-                    "success" : "warning"} className="vanish">{response.data.MESSAGE}</Alert>, loading : true})
+                response => {
+                    this.setState({alerta : <Alert variant={response.data.CODE === 1 ? 
+                    "success" : "warning"}>{response.data.MESSAGE}</Alert>, loading : true});
+                    
+                    if(response.data.CODE === 1){
+                        setTimeout(() => {
+                            this.setState({alerta:""});
+                            window.location = "/";
+                        }, 5000)
+                    }
+                }
         );
-        setTimeout(() => {
-            this.setState({alerta:""});
-            window.location = "/";
-        }, 5000)
         event.preventDefault();    
     }
     render() {

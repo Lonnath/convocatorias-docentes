@@ -1,10 +1,7 @@
-import React, {useState}from 'react';
-import { Navbar, Container, Nav, Modal, Button} from 'react-bootstrap';
+import React from 'react';
+import { Navbar, Container, Nav } from 'react-bootstrap';
 import UFPSLogo from '../../images/logoufps.png';
 export default function HeaderComponent(){
-    const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
     return (
         <>
             <Navbar collapseOnSelect expand="lg" className="ufps-color" variant="dark">

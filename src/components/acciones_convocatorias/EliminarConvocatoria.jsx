@@ -8,7 +8,7 @@ export default function EliminarConvocatoria ({data, disabled}){
     const handleShow = () => setShow(true);
     const [loading, setLoading] = useState(true);
     const [alerta, setAlerta] = useState("");
-    const [boton, setBoton] = useState("boton"+data.id_proyecto+"erase");
+    const [boton] = useState("boton"+data.id_proyecto+"erase");
     useEffect(
         function boton_funcion (){
             if(disabled){

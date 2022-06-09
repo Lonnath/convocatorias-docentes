@@ -7,11 +7,6 @@ export default function DetallesAspirante ({data}){
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-    const [index, setIndex] = useState(0);
-
-    const handleSelect = (selectedIndex, e) => {
-        setIndex(selectedIndex);
-    };
 
     return (
         <>

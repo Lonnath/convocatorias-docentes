@@ -1,5 +1,4 @@
-import React, {useState, useEffect} from "react";
-import { Row, Col } from "react-bootstrap";
+import React from "react";
 import File from '../../images/file.png';
 import EliminarConvocatoria from "./EliminarConvocatoria";
 import EnlaceAspirantes from "./EnlaceAspirantes";
@@ -120,9 +119,7 @@ export default class ListarConvocatorias extends React.Component{
         }
         setInterval(() => {
             this.consultar();
-            if(this.state.datos.rows.length != this.state.dataTable.rows.length){
-                this.setState({dataTable:this.state.datos});
-            }
+            this.setState({dataTable:this.state.datos});
             
         }, 1000);
     }
@@ -136,7 +133,7 @@ export default class ListarConvocatorias extends React.Component{
             response => {
                 let out = []; 
                 JSON.parse(response.data.DATA).map(item => (
-                    out.push({'id':item.id, 'cargoyarea': item.cargo+" - "+item.area , 'fecha_inicio_inscripcion':item.fecha_inicio_inscripcion, 'fecha_max_inscripcion': item.fecha_max_inscripcion, 'descripcion': item.descripcion, 'estado':item.estado, 'archivo_id': <img src={File} alt="" width="30" />, 'acciones': this.state.admin ? <div><EnlaceAspirantes data={item} /><EliminarConvocatoria data={item} /></div>: <div><AspiranteComponent data={item} /> <Postular data={item}/></div>})
+                    out.push({'id':item.id, 'cargoyarea': item.cargo+" - "+item.area , 'fecha_inicio_inscripcion':item.fecha_inicio_inscripcion, 'fecha_max_inscripcion': item.fecha_max_inscripcion, 'descripcion': item.descripcion, 'estado':item.estado, 'archivo_id': <a href={window.location.protocol+'//'+window.location.host+'/static/media/'+item.archivo} alt="" width="30" target='_blank'><img src={File} alt="" width="30"/></a>, 'acciones': this.state.admin ? <div><EnlaceAspirantes data={item} /><EliminarConvocatoria data={item} /></div>: <div><AspiranteComponent data={item} /> <Postular data={item}/></div>})
                 ));
                 this.setState({
                     datos: {

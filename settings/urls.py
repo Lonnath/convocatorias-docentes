@@ -17,6 +17,8 @@ from django.contrib import admin
 from django.urls import path
 from django.views.generic import TemplateView
 from api.views import *
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -52,4 +54,4 @@ urlpatterns = [
     path('api/eliminar_experiencia', eliminar_experiencia, name='eliminar_experiencia'),
     path('api/calificar_aspirante', calificar_aspirante, name='calificar_aspirante'),
     path('api/ver_postulacion', ver_postulacion, name='ver_postulacion'),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,14 +1,6 @@
 from django.db import models
-from django.db.models.deletion import CASCADE, DO_NOTHING, SET_NULL
-
 # Create your models here.
 
-class Archivos(models.Model):
-    ruta = models.TextField()
-    nombre_archivo=models.CharField(max_length=255)
-    extension = models.CharField(max_length=5)
-    class Meta:
-        db_table = 'archivos'
 class Usuarios(models.Model):
     documento = models.CharField(max_length=16, unique=True)
     nombre = models.CharField(max_length=255)
@@ -16,7 +8,7 @@ class Usuarios(models.Model):
     direccion = models.CharField(max_length=255, null=True, blank=True)
     telefono = models.CharField(max_length=255, null=True, blank=True)
     fecha_nacimiento = models.DateField(null=True, blank=True)
-    genero = models.CharField(max_length=1)
+    genero = models.CharField(max_length=1, default='m')
     class Meta:
         db_table = 'usuarios'
 class Experiencias(models.Model):
@@ -53,14 +45,13 @@ class Convocatorias(models.Model):
     fecha_creacion = models.DateField(null=True, blank=True)
     descripcion = models.TextField(null=True, blank=True)
     estado = models.IntegerField()
-    archivo = models.ForeignKey(Archivos, on_delete=models.SET_NULL, null=True, blank=True)
+    file = models.FileField(upload_to='convocatorias/', null=True, blank=True)
     class Meta:
         db_table = 'convocatorias'
 class Postulaciones (models.Model):
-    convocatoria = models.ForeignKey(Convocatorias, on_delete=CASCADE, null=True, blank=True)
+    convocatoria = models.ForeignKey(Convocatorias, on_delete=models.CASCADE, null=True, blank=True)
     aspirante = models.ForeignKey(Cuentas, on_delete=models.CASCADE, null=True, blank=True)
     fecha_postulacion = models.DateField()
     estado = models.IntegerField()
     class Meta:
         db_table = 'postulaciones'
-

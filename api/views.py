@@ -1,10 +1,11 @@
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from django.core import serializers
 from api.models import *
 import datetime
 import json
-
+import re
+import datetime
+from dateutil.relativedelta import relativedelta
 @csrf_exempt
 def registrar_usuarios(request):
     try:
@@ -21,12 +22,28 @@ def registrar_usuarios(request):
             password=jd['password'] if 'password' in jd else None
             if not documento or not nombre or not email or not apellidos or not password:
                 return JsonResponse({'CODE':2, 'MESSAGE':'Faltan datos.', 'DATA': "ERROR."})
-            usuario = Usuarios(documento=documento, nombre=nombre, direccion = direccion, telefono = telefono, fecha_nacimiento = fecha_nacimiento, genero = genero)
-            cuenta = Cuentas(email=email.lower(), password=password, tipo_usuario=2, user=usuario)
-            usuario.save()
-            cuenta.save()
-            return JsonResponse({'CODE':1, 'MESSAGE':'Se ha registrado exitosamente en el portal, será redireccionado a la pagina principal en un momento.', 'DATA': 'Ok'})    
+            if not genero:
+                genero = 'm'
+            fecha_actual = datetime.datetime.now()
+            fecha_usuario = datetime.datetime.strptime(fecha_nacimiento,'%Y-%m-%d')
+            result_date = relativedelta(fecha_actual,fecha_usuario)
+            if result_date.years < 18:
+                return JsonResponse({'CODE':2, 'MESSAGE':'No cumple con el requisito de edad.', 'DATA': "ERROR."})
+            regex = re.search("[a-zA-Z]", documento)
+            if regex or len(documento) < 6 or len(documento) > 10:
+                return JsonResponse({'CODE':2, 'MESSAGE':'El documento cuenta con caracteres invalidos.', 'DATA': 'ERROR'})
+            validate_users = Usuarios.objects.filter(documento=documento)
+            validate_cuentas = Cuentas.objects.filter(email=email)
+            if validate_users or validate_cuentas:
+                return JsonResponse({'CODE':2, 'MESSAGE':'Usuario ya se encuentra registrado.', 'DATA': "ERROR."})
+            else:
+                usuario = Usuarios(documento=documento, nombre=nombre, direccion = direccion, telefono = telefono, fecha_nacimiento = fecha_nacimiento, genero = genero)
+                cuenta = Cuentas(email=email.lower(), password=password, tipo_usuario=2, user=usuario)
+                usuario.save()
+                cuenta.save()
+                return JsonResponse({'CODE':1, 'MESSAGE':'Se ha registrado exitosamente en el portal, será redireccionado a la pagina principal en un momento.', 'DATA': 'Ok'})    
     except Exception as e:
+        print(e)
         return JsonResponse({'CODE':2, 'MESSAGE':'Cuenta existente, intentelo nuevamente con un email o documento diferente.', 'DATA': 'ERROR'})
 @csrf_exempt
 def login(request):
@@ -56,12 +73,12 @@ def consultar_convocatorias(request):
                 out = []
                 for x in convocatorias:
                     archivo ="No hay registro."
-                    if x.archivo :
-                        archivo = x.archivo.id
+                    if x.file:
+                        archivo = x.file.name
                     estado = "Finalizada"
                     if int(x.estado) == 1:
                         estado = "Activa"
-                    out.append({'id': x.id, 'fecha_creacion': x.fecha_creacion.strftime('%Y-%m-%d'),'cargo': x.cargo, 'area': x.area, 'fecha_inicio_inscripcion': x.fecha_inicio_inscripcion.strftime('%Y-%m-%d'), 'fecha_max_inscripcion': x.fecha_max_inscripcion.strftime('%Y-%m-%d'), 'descripcion': x.descripcion, 'estado': estado, 'archivo_id': archivo})
+                    out.append({'id': x.id, 'fecha_creacion': x.fecha_creacion.strftime('%Y-%m-%d'),'cargo': x.cargo, 'area': x.area, 'fecha_inicio_inscripcion': x.fecha_inicio_inscripcion.strftime('%Y-%m-%d'), 'fecha_max_inscripcion': x.fecha_max_inscripcion.strftime('%Y-%m-%d'), 'descripcion': x.descripcion, 'estado': estado, 'archivo': archivo})
                 out = json.dumps(out)
                 return JsonResponse({'CODE':1, 'MESSAGE':'Consulta Autorizada.', 'DATA': out})
             return JsonResponse({'CODE':2, 'MESSAGE':'Acceso Denegado.', 'DATA': "ERROR."})    
@@ -69,20 +86,23 @@ def consultar_convocatorias(request):
         return JsonResponse({'CODE':2, 'MESSAGE':'Fallo del Servidor, consultar con soporte.', 'DATA': 'ERROR'})
 @csrf_exempt
 def crear_convocatoria(request):
-    try:
-        jd = json.loads(request.body)
+    try:     
+        jd = request.POST
+        files = request.FILES
         if jd:
             cargo = jd['cargo'] if 'cargo' in jd else None
             area = jd['area'] if 'area' in jd else None
             fecha_inicio_inscripcion = jd['fecha_inicio_inscripcion'] if 'fecha_inicio_inscripcion' in jd else None
             fecha_max_inscripcion = jd['fecha_max_inscripcion'] if 'fecha_max_inscripcion' in jd else None
             descripcion = jd['descripcion'] if 'descripcion' in jd else None
-            if not cargo or not area or not fecha_inicio_inscripcion or not fecha_max_inscripcion:
+            archivo = files['archivo'] if 'archivo' in files else None
+            if not cargo or not area or not fecha_inicio_inscripcion or not fecha_max_inscripcion or not archivo:
                     return JsonResponse({'CODE':2, 'MESSAGE':'Faltan datos.', 'DATA': "ERROR."})
-            convocatoria = Convocatorias(cargo=cargo, area=area, fecha_inicio_inscripcion=fecha_inicio_inscripcion, fecha_max_inscripcion= fecha_max_inscripcion, estado = 1, descripcion = descripcion, fecha_creacion = datetime.datetime.now().strftime("%Y-%m-%d"))
+            convocatoria = Convocatorias(cargo=cargo, area=area, fecha_inicio_inscripcion=fecha_inicio_inscripcion, fecha_max_inscripcion= fecha_max_inscripcion, estado = 1, descripcion = descripcion, fecha_creacion = datetime.datetime.now().strftime("%Y-%m-%d"), file = archivo)
             convocatoria.save()
-            return JsonResponse({'CODE':1, 'MESSAGE':'Convocatoria creada satisfactoriamente', 'DATA': "Ok."})        
+            return JsonResponse({'CODE':1, 'MESSAGE':'Convocatoria creada satisfactoriamente', 'DATA': "Ok."})
     except Exception as e:
+        print(e)
         return JsonResponse({'CODE':2, 'MESSAGE':'No se pudo crear la convocatoria, verifique la información suministrada.', 'DATA': 'ERROR'})
 @csrf_exempt
 def eliminar_convocatoria(request):

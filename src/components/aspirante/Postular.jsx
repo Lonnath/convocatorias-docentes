@@ -6,7 +6,7 @@ export default function Postular ({data}){
     const [show, setShow] = useState(false);
     const [alerta, setAlerta] = useState("");
     const [loading, setLoading] = useState(true);
-    const [datos, setDatos] = useState(data);
+    const [datos] = useState(data);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const postular = () => {

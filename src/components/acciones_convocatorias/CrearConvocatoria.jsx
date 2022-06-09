@@ -27,16 +27,18 @@ export default class CrearConvocatoria extends React.Component {
       });
     }
     handleSubmit(event) {
-        const data = {
-            cargo: this.state.cargo,
-            area: this.state.area,
-            fecha_inicio_inscripcion: this.state.fecha_inicio_inscripcion,
-            fecha_max_inscripcion: this.state.fecha_max_inscripcion,
-            descripcion: this.state.descripcion,
-            archivo: this.state.archivo,
-        }
+        const data = new FormData();
+        data.append('cargo', this.state.cargo);
+        data.append('area', this.state.area);
+        data.append('fecha_inicio_inscripcion', this.state.fecha_inicio_inscripcion);
+        data.append('fecha_max_inscripcion', this.state.fecha_max_inscripcion);
+        data.append('descripcion', this.state.descripcion);
+        data.append('archivo', this.state.archivo);
         this.setState({loading:false}); 
-        API.post('/api/crear_convocatoria', data).then(
+        API.post('/api/crear_convocatoria', data, {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }}).then(
                 response => this.setState({alerta : <Alert variant={response.data.CODE === 1 ? 
                     "success" : "warning"} className="vanish">{response.data.MESSAGE}</Alert>, loading : true})
             ) 
@@ -77,7 +79,7 @@ export default class CrearConvocatoria extends React.Component {
                 </Form.Group>
                 <Form.Group controlId="formFile" className="mb-3">
                     <Form.Label>Soportes: </Form.Label>
-                    <Form.Control type="file" name="archivo" value={this.state.archivo} onChange={this.handleInputChange} />
+                    <Form.Control type="file" name="archivo" onChange={(e) => this.setState({archivo:e.target.files[0]})} />
                 </Form.Group>
                 
                 <div id ="alerta">

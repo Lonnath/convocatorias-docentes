@@ -1,5 +1,4 @@
-import React, {useState, useEffect} from "react";
-import File from '../../images/file.png';
+import React from "react";
 import API from '../../services/Api'
 import { MDBDataTableV5 } from 'mdbreact';
 export default class VerPostulaciones extends React.Component{
@@ -74,10 +73,7 @@ export default class VerPostulaciones extends React.Component{
         }
         setInterval(() => {
             this.consultar();
-            if(this.state.datos.rows.length != this.state.dataTable.rows.length){
-                this.setState({dataTable:this.state.datos});
-            }
-            
+            this.setState({dataTable:this.state.datos});            
         }, 1000);
     }
     consultar (){

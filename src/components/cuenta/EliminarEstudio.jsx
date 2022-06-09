@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import {Button, Alert, Modal} from 'react-bootstrap';
 import SpinnerComponent from '../spinner/SpinnerComponent.jsx';
 import API from '../../services/Api'
@@ -8,7 +8,7 @@ export default function EliminarEstudio ({data}){
     const handleShow = () => setShow(true);
     const [loading, setLoading] = useState(true);
     const [alerta, setAlerta] = useState("");
-    const [dato, setDato] = useState(data);
+    const [dato] = useState(data);
     const eliminar = () => {
         setLoading(false);
         console.log(dato)

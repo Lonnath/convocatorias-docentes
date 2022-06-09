@@ -83,12 +83,12 @@ export default class VerPostulados extends React.Component{
             },
         }
         this.consultar();
-        if(this.state.datos.rows.length != this.state.dataTable.rows.length || this.state.dataTable.rows.length==0 ){
+        if(this.state.datos.rows.length !== this.state.dataTable.rows.length || this.state.dataTable.rows.length===0 ){
             this.setState({dataTable:this.state.datos});
         }
         setInterval(() => {
             this.consultar();
-            if(this.state.datos.rows.length != this.state.dataTable.rows.length || this.state.dataTable.rows.length==0 ){
+            if(this.state.datos.rows.length !== this.state.dataTable.rows.length || this.state.dataTable.rows.length===0 ){
                 this.setState({dataTable:this.state.datos});
             }
         }, 2000);

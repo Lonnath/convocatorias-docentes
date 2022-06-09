@@ -1,5 +1,5 @@
 import React from "react";
-import {Row, Col, Button, Form, Alert, Table, InputGroup} from 'react-bootstrap';
+import {Row, Col, Button, Form, Alert, Table} from 'react-bootstrap';
 import SpinnerComponent from '../spinner/SpinnerComponent.jsx';
 import API from '../../services/Api';
 import EliminarEstudio from "./EliminarEstudio.jsx";
